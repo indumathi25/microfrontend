@@ -79,7 +79,7 @@ export default function Header({ isSignedIn, onSignOut }) {
             component={RouterLink}
             to='/'
           >
-            App - Indumathi 1234
+            App - 1234
           </Typography>
           <Button
             color='primary'
