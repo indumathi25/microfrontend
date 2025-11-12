@@ -1,9 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import {
-  StylesProvider,
-  createGenerateClassName,
-} from '@material-ui/core/styles';
+import { StylesProvider, createGenerateClassName } from '@mui/material/styles';
 import { createBrowserHistory } from 'history';
 
 import Progress from './components/Progress';
@@ -38,14 +35,14 @@ export default () => {
           />
           <Suspense fallback={<Progress />}>
             <Switch>
-              <Route path="/auth">
+              <Route path='/auth'>
                 <AuthLazy onSignIn={() => setIsSignedIn(true)} />
               </Route>
-              <Route path="/dashboard">
-                {!isSignedIn && <Redirect to="/" />}
+              <Route path='/dashboard'>
+                {!isSignedIn && <Redirect to='/' />}
                 <DashboardLazy />
               </Route>
-              <Route path="/" component={MarketingLazy} />
+              <Route path='/' component={MarketingLazy} />
             </Switch>
           </Suspense>
         </div>

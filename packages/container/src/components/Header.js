@@ -1,9 +1,9 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/material/styles';
 import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -66,24 +66,24 @@ export default function Header({ isSignedIn, onSignOut }) {
   return (
     <React.Fragment>
       <AppBar
-        position="static"
-        color="default"
+        position='static'
+        color='default'
         elevation={0}
         className={classes.appBar}
       >
         <Toolbar className={classes.toolbar}>
           <Typography
-            variant="h6"
-            color="inherit"
+            variant='h6'
+            color='inherit'
             noWrap
             component={RouterLink}
-            to="/"
+            to='/'
           >
             App
           </Typography>
           <Button
-            color="primary"
-            variant="outlined"
+            color='primary'
+            variant='outlined'
             className={classes.link}
             component={RouterLink}
             to={isSignedIn ? '/' : '/auth/signin'}
