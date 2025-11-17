@@ -26,7 +26,7 @@ jobs:
     name: SonarCloud Scan
     runs-on: ubuntu-latest
     needs: lint
-    # Only run when Sonar secrets are provided in the repository settings
+    # Only run when Sonar secrets are provided in the repository settings dasfag
     if: ${{ secrets.SONAR_TOKEN && secrets.SONAR_ORGANIZATION }}
     steps:
       - uses: actions/checkout@v4
