@@ -1,0 +1,49 @@
+name: Code Quality
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    name: Lint (ESLint via Super-Linter)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Super-Linter
+        uses: github/super-linter@v4
+        env:
+          # Ensure the super-linter runs JavaScript/JSX checks
+          VALIDATE_JS: true
+          VALIDATE_JSX: true
+          # Provide path to repo ESLint config
+          ESLINT_RULES_PATH: ./.eslintrc.json
+          # Exclude common directories
+          FILTER_REGEX_EXCLUDE: .git,node_modules,dist
+
+  sonarcloud:
+    name: SonarCloud Scan
+    runs-on: ubuntu-latest
+    needs: lint
+    # Only run when Sonar secrets are provided in the repository settings
+    if: ${{ secrets.SONAR_TOKEN && secrets.SONAR_ORGANIZATION }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Java (required by SonarScanner)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+      - name: Cache Sonar packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1
+        with:
+          organization: ${{ secrets.SONAR_ORGANIZATION }}
+          token: ${{ secrets.SONAR_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
